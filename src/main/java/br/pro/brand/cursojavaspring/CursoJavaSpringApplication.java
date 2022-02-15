@@ -1,6 +1,5 @@
 package br.pro.brand.cursojavaspring;
 
-<<<<<<< HEAD
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,19 +41,11 @@ public class CursoJavaSpringApplication implements CommandLineRunner {
 
 	@Autowired
 	private AdressRepository adressRepository;
-=======
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-@SpringBootApplication
-public class CursoJavaSpringApplication {
->>>>>>> db7f4df (Projeto Criado)
 
 	public static void main(String[] args) {
 		SpringApplication.run(CursoJavaSpringApplication.class, args);
 	}
 
-<<<<<<< HEAD
 	@Override
 	public void run(String... args) throws Exception {
 
@@ -99,6 +90,4 @@ public class CursoJavaSpringApplication {
 
 	}
 
-=======
->>>>>>> db7f4df (Projeto Criado)
 }

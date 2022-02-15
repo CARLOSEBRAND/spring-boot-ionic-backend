@@ -27,7 +27,6 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-<<<<<<< HEAD
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -40,8 +39,6 @@
 			<version>8.0.26</version>
 		</dependency>
 
-=======
->>>>>>> db7f4df (Projeto Criado)
 	</dependencies>
 
 	<build>
