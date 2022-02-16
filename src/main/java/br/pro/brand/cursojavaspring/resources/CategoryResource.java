@@ -1,28 +1,25 @@
 package br.pro.brand.cursojavaspring.resources;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.pro.brand.cursojavaspring.domain.Category;
+import br.pro.brand.cursojavaspring.services.CategoryService;
 
 @RestController
 @RequestMapping(value="/categories")
 public class CategoryResource {
 
-	@RequestMapping(method=RequestMethod.GET)
-	public List<Category> listar() {
-		
-		Category cat1 = new Category(1,"Informática");
-		Category cat2 = new Category(2,"Escritório");
+	@Autowired
+	private CategoryService service;
 
-		List<Category> list = new ArrayList<>();
-		list.add(cat1);
-		list.add(cat2);
-		
-		return list;
+	@RequestMapping(value = "/{id}", method=RequestMethod.GET)
+	public ResponseEntity<?> find(@PathVariable Integer id) {
+		Category obj = service.find_category(id);
+		return ResponseEntity.ok().body(obj);
 	}
 }
