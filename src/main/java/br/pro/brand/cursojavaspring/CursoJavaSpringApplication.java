@@ -50,6 +50,12 @@ public class CursoJavaSpringApplication implements CommandLineRunner {
 
 	@Autowired
 	private ProductRepository productRepository;
+
+	@Autowired
+	private StateRepository stateRepository;
+
+	@Autowired
+	private CityRepository cityRepository;
 	public static void main(String[] args) {
 		SpringApplication.run(CursoJavaSpringApplication.class, args);
 	}
