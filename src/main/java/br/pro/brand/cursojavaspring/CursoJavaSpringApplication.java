@@ -42,6 +42,11 @@ public class CursoJavaSpringApplication implements CommandLineRunner {
 	@Autowired
 	private AdressRepository adressRepository;
 
+@SpringBootApplication
+public class CursoJavaSpringApplication implements CommandLineRunner {
+
+	@Autowired
+	private CategoryRepository categoryRepository;
 	public static void main(String[] args) {
 		SpringApplication.run(CursoJavaSpringApplication.class, args);
 	}
