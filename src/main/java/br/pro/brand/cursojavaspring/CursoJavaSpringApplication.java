@@ -1,5 +1,6 @@
 package br.pro.brand.cursojavaspring;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,17 +9,24 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import br.pro.brand.cursojavaspring.domain.Adress;
+import br.pro.brand.cursojavaspring.domain.BankSlipPayment;
 import br.pro.brand.cursojavaspring.domain.Category;
 import br.pro.brand.cursojavaspring.domain.City;
+import br.pro.brand.cursojavaspring.domain.CreditCardPayment;
 import br.pro.brand.cursojavaspring.domain.Customer;
+import br.pro.brand.cursojavaspring.domain.Payment;
 import br.pro.brand.cursojavaspring.domain.Product;
+import br.pro.brand.cursojavaspring.domain.PurchaseOrder;
 import br.pro.brand.cursojavaspring.domain.State;
 import br.pro.brand.cursojavaspring.domain.enums.CustomerType;
+import br.pro.brand.cursojavaspring.domain.enums.PaymentStatus;
 import br.pro.brand.cursojavaspring.repositories.AdressRepository;
 import br.pro.brand.cursojavaspring.repositories.CategoryRepository;
 import br.pro.brand.cursojavaspring.repositories.CityRepository;
 import br.pro.brand.cursojavaspring.repositories.CustomerRepository;
+import br.pro.brand.cursojavaspring.repositories.PaymentRepository;
 import br.pro.brand.cursojavaspring.repositories.ProductRepository;
+import br.pro.brand.cursojavaspring.repositories.PurchaseOrderRepository;
 import br.pro.brand.cursojavaspring.repositories.StateRepository;
 
 @SpringBootApplication
@@ -42,20 +50,12 @@ public class CursoJavaSpringApplication implements CommandLineRunner {
 	@Autowired
 	private AdressRepository adressRepository;
 
-@SpringBootApplication
-public class CursoJavaSpringApplication implements CommandLineRunner {
+	@Autowired
+	private PurchaseOrderRepository purchaseOrderRepository;
 
 	@Autowired
-	private CategoryRepository categoryRepository;
+	private PaymentRepository paymentRepository;
 
-	@Autowired
-	private ProductRepository productRepository;
-
-	@Autowired
-	private StateRepository stateRepository;
-
-	@Autowired
-	private CityRepository cityRepository;
 	public static void main(String[] args) {
 		SpringApplication.run(CursoJavaSpringApplication.class, args);
 	}
@@ -84,6 +84,17 @@ public class CursoJavaSpringApplication implements CommandLineRunner {
 		Adress a1 = new Adress(null, "Rua Flores", "300", "Apto 303", "Jardim", "38220834", ctmr1, c1);
 		Adress a2 = new Adress(null, "Avenida Matos", "105", "Sala 800", "Centro", "38777012", ctmr1, c2);
 
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyy HH:mm");
+		PurchaseOrder ped1 = new PurchaseOrder(null, sdf.parse("17/02/2022 02:29"), ctmr1, a1);
+		PurchaseOrder ped2 = new PurchaseOrder(null, sdf.parse("17/02/2022 02:30"), ctmr1, a2);
+
+		Payment pag1 = new CreditCardPayment(null, PaymentStatus.QUITADO, ped1, 6);
+		ped1.setPayment(pag1);
+
+		Payment pag2 = new BankSlipPayment(null, PaymentStatus.PENDENTE, ped2, sdf.parse("16/02/2022 17:55"), null);
+		ped2.setPayment(pag2);
+
+
 		//associating tables category x product
 		cat1.getProducts().addAll(Arrays.asList(p1,p2,p3));
 		cat2.getProducts().addAll(Arrays.asList(p2));
@@ -93,6 +104,7 @@ public class CursoJavaSpringApplication implements CommandLineRunner {
 		est1.getCities().addAll(Arrays.asList(c1));
 		est2.getCities().addAll(Arrays.asList(c2,c3));
 		ctmr1.getAdresses().addAll(Arrays.asList(a1,a2));
+		ctmr1.getPurchaseOrders().addAll(Arrays.asList(ped1,ped2));
 
 		//save in tables
 		categoryRepository.saveAll(Arrays.asList(cat1, cat2));
@@ -101,6 +113,8 @@ public class CursoJavaSpringApplication implements CommandLineRunner {
 		cityRepository.saveAll(Arrays.asList(c1,c2,c3));
 		customerRepository.saveAll(Arrays.asList(ctmr1));
 		adressRepository.saveAll(Arrays.asList(a1,a2));
+		purchaseOrderRepository.saveAll(Arrays.asList(ped1,ped2));
+		paymentRepository.saveAll(Arrays.asList(pag1,pag2));
 
 	}
 
