@@ -16,6 +16,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import br.pro.brand.cursojavaspring.domain.enums.CustomerType;
 
 @Entity
@@ -32,6 +34,7 @@ public class Customer implements Serializable {
     private CustomerType type;
 
     //cliente tem muitos endereços
+    @JsonManagedReference
     @OneToMany(mappedBy = "customer")
     private List<Adress> adresses = new ArrayList<>();
 
