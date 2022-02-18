@@ -11,7 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import br.pro.brand.cursojavaspring.domain.enums.PaymentStatus;
 
@@ -25,7 +25,7 @@ public abstract class Payment implements Serializable {
 	private Integer id;
 	private PaymentStatus paymentStatus;
 
-    @JsonBackReference
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "purchase_order_id")
     @MapsId

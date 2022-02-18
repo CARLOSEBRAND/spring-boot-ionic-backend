@@ -14,9 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import br.pro.brand.cursojavaspring.domain.enums.CustomerType;
 
@@ -34,7 +32,6 @@ public class Customer implements Serializable {
     private CustomerType type;
 
     //cliente tem muitos endereços
-    @JsonManagedReference
     @OneToMany(mappedBy = "customer")
     private List<Adress> adresses = new ArrayList<>();
 
@@ -43,7 +40,7 @@ public class Customer implements Serializable {
     @CollectionTable(name = "PHONE")
     private Set<String> phones = new HashSet<>();
 
-    @JsonBackReference
+    @JsonIgnore
     @OneToMany(mappedBy = "customer")
     private List<PurchaseOrder> purchaseOrders = new ArrayList<>();
 
