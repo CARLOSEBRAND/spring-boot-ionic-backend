@@ -2,7 +2,9 @@ package br.pro.brand.cursojavaspring.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -11,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -34,6 +37,8 @@ public class PurchaseOrder implements Serializable {
     @JoinColumn(name = "delivery_adress_id")
     private Adress deliveryAdress;
 
+    @OneToMany(mappedBy = "id.purchaseOrder")
+    private Set<OrderDetail> orderDetails = new HashSet<>();
 
     public PurchaseOrder() {
     }
@@ -44,7 +49,6 @@ public class PurchaseOrder implements Serializable {
         this.customer = customer;
         this.deliveryAdress = deliveryAdress;
     }
-
 
     public Integer getId() {
         return this.id;
@@ -84,6 +88,14 @@ public class PurchaseOrder implements Serializable {
 
     public void setDeliveryAdress(Adress deliveryAdress) {
         this.deliveryAdress = deliveryAdress;
+    }
+
+    public Set<OrderDetail> getOrderDetails() {
+        return orderDetails;
+    }
+
+    public void setOrderDetails(Set<OrderDetail> orderDetails) {
+        this.orderDetails = orderDetails;
     }
 
     @Override

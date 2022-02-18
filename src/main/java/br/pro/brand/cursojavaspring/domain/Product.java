@@ -2,8 +2,10 @@ package br.pro.brand.cursojavaspring.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -34,6 +37,9 @@ public class Product implements Serializable {
     )
     private List<Category> categories = new ArrayList<>();
 
+    @OneToMany(mappedBy = "id.product")
+    private Set<OrderDetail> orderDetails = new HashSet<>();
+
     public Product() {
     }
 
@@ -44,6 +50,13 @@ public class Product implements Serializable {
         this.price = price;        
     }
 
+    public List<PurchaseOrder> getPurchaseOrders() {
+        List<PurchaseOrder> list = new ArrayList<>();
+        for (OrderDetail x : orderDetails) {
+            list.add(x.getPurchaseOrder());
+        }
+        return list;
+    }
 
     public Integer getId() {
         return this.id;
@@ -77,6 +90,13 @@ public class Product implements Serializable {
         this.categories = categories;
     }
 
+    public Set<OrderDetail> getOrderDetails() {
+        return orderDetails;
+    }
+
+    public void setOrderDetails(Set<OrderDetail> orderDetails) {
+        this.orderDetails = orderDetails;
+    }
 
     @Override
     public boolean equals(Object o) {

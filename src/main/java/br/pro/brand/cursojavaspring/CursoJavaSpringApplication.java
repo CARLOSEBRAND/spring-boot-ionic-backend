@@ -14,6 +14,7 @@ import br.pro.brand.cursojavaspring.domain.Category;
 import br.pro.brand.cursojavaspring.domain.City;
 import br.pro.brand.cursojavaspring.domain.CreditCardPayment;
 import br.pro.brand.cursojavaspring.domain.Customer;
+import br.pro.brand.cursojavaspring.domain.OrderDetail;
 import br.pro.brand.cursojavaspring.domain.Payment;
 import br.pro.brand.cursojavaspring.domain.Product;
 import br.pro.brand.cursojavaspring.domain.PurchaseOrder;
@@ -24,6 +25,7 @@ import br.pro.brand.cursojavaspring.repositories.AdressRepository;
 import br.pro.brand.cursojavaspring.repositories.CategoryRepository;
 import br.pro.brand.cursojavaspring.repositories.CityRepository;
 import br.pro.brand.cursojavaspring.repositories.CustomerRepository;
+import br.pro.brand.cursojavaspring.repositories.OrderDetailRepository;
 import br.pro.brand.cursojavaspring.repositories.PaymentRepository;
 import br.pro.brand.cursojavaspring.repositories.ProductRepository;
 import br.pro.brand.cursojavaspring.repositories.PurchaseOrderRepository;
@@ -55,6 +57,9 @@ public class CursoJavaSpringApplication implements CommandLineRunner {
 
 	@Autowired
 	private PaymentRepository paymentRepository;
+
+	@Autowired
+	private OrderDetailRepository orderDetailRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(CursoJavaSpringApplication.class, args);
@@ -94,6 +99,10 @@ public class CursoJavaSpringApplication implements CommandLineRunner {
 		Payment pag2 = new BankSlipPayment(null, PaymentStatus.PENDENTE, ped2, sdf.parse("16/02/2022 17:55"), null);
 		ped2.setPayment(pag2);
 
+		OrderDetail ip1 = new OrderDetail(ped1, p1, 0.00, 1, 2000.00);
+		OrderDetail ip2 = new OrderDetail(ped1, p3, 0.00, 2, 80.00);
+		OrderDetail ip3 = new OrderDetail(ped2, p2, 100.00, 1, 800.00);
+
 
 		//associating tables category x product
 		cat1.getProducts().addAll(Arrays.asList(p1,p2,p3));
@@ -105,6 +114,13 @@ public class CursoJavaSpringApplication implements CommandLineRunner {
 		est2.getCities().addAll(Arrays.asList(c2,c3));
 		ctmr1.getAdresses().addAll(Arrays.asList(a1,a2));
 		ctmr1.getPurchaseOrders().addAll(Arrays.asList(ped1,ped2));
+		ped1.getOrderDetails().addAll(Arrays.asList(ip1, ip2));
+		ped2.getOrderDetails().addAll(Arrays.asList(ip3));
+		p1.getOrderDetails().addAll(Arrays.asList(ip1));
+		p2.getOrderDetails().addAll(Arrays.asList(ip3));
+		p3.getOrderDetails().addAll(Arrays.asList(ip2));
+
+
 
 		//save in tables
 		categoryRepository.saveAll(Arrays.asList(cat1, cat2));
@@ -116,6 +132,7 @@ public class CursoJavaSpringApplication implements CommandLineRunner {
 		purchaseOrderRepository.saveAll(Arrays.asList(ped1,ped2));
 		paymentRepository.saveAll(Arrays.asList(pag1,pag2));
 
+		orderDetailRepository.saveAll(Arrays.asList(ip1,ip2,ip3));
 	}
 
 }
