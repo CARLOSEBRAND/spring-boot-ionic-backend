@@ -15,12 +15,19 @@ public class CategoryService {
     @Autowired
     private CategoryRepository rep;
 
-    public Category find_category(Integer id) {
+    public Category search(Integer id) {
         Optional<Category> obj = rep.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException(
             "Object not found! Id: " + id + 
             " ,Type: " + Category.class.getName(), null)
         );
     }
+
+    public Category insert(Category obj) {
+        obj.setId(null);
+        return rep.save(obj);
+    }
+
+
     
 }

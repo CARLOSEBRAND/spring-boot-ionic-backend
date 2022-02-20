@@ -20,17 +20,17 @@ public class Category implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private String name;
+	private String description;
 
 	@ManyToMany(mappedBy = "categories")
 	private List<Product> products = new ArrayList<>();
 	
 	public Category () {}
 	
-	public Category(Integer id, String name) {
+	public Category(Integer id, String description) {
 		super();
 		this.id = id;
-		this.name = name;
+		this.description = description;
 	}
 
 	public Integer getId() {
@@ -41,12 +41,12 @@ public class Category implements Serializable {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public List<Product> getProducts() {
