@@ -4,9 +4,12 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +23,7 @@ import br.pro.brand.cursojavaspring.dto.CategoryDTO;
 import br.pro.brand.cursojavaspring.services.CategoryService;
 
 @RestController
+@Validated
 @RequestMapping(value="/categories")
 public class CategoryResource {
 
@@ -33,7 +37,8 @@ public class CategoryResource {
 	}
 
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<Void> insert(@RequestBody Category obj) {
+	public ResponseEntity<Void> insert(@Valid @RequestBody CategoryDTO objDTO) throws Exception {
+		Category obj = service.fromDTO(objDTO);
 		obj = service.insert(obj);
 		Integer uriVariables = obj.getId();
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -42,7 +47,8 @@ public class CategoryResource {
 	}
 
 	@RequestMapping(value = "/{id}", method=RequestMethod.PUT)
-	public ResponseEntity<?> update(@RequestBody Category obj, @PathVariable Integer id) {
+	public ResponseEntity<Void> update(@Valid @RequestBody CategoryDTO objDTO, @PathVariable Integer id) {
+		Category obj = service.fromDTO(objDTO);
 		obj.setId(id);
 		obj = service.update(obj);
 		return ResponseEntity.noContent().build();
