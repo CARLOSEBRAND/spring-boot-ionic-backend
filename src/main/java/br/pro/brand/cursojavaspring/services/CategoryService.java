@@ -2,10 +2,14 @@ package br.pro.brand.cursojavaspring.services;
 
 import java.util.Optional;
 
+import com.mysql.cj.x.protobuf.MysqlxCrud.Find;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import br.pro.brand.cursojavaspring.domain.Category;
+import br.pro.brand.cursojavaspring.exceptions.DataIntegrityException;
 import br.pro.brand.cursojavaspring.exceptions.ObjectNotFoundException;
 import br.pro.brand.cursojavaspring.repositories.CategoryRepository;
 
@@ -33,6 +37,13 @@ public class CategoryService {
         return rep.save(obj);
     }
 
-
+    public void delete(Integer id) {
+        search(id);
+        try {
+            rep.deleteById(id);
+        } catch (DataIntegrityViolationException e) {
+            throw new DataIntegrityException("Its not possible to delete a category that contains products");
+        }
+    }
     
 }
