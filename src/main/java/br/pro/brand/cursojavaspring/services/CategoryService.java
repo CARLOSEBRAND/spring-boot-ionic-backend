@@ -1,5 +1,6 @@
 package br.pro.brand.cursojavaspring.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.mysql.cj.x.protobuf.MysqlxCrud.Find;
@@ -44,6 +45,10 @@ public class CategoryService {
         } catch (DataIntegrityViolationException e) {
             throw new DataIntegrityException("Its not possible to delete a category that contains products");
         }
+    }
+
+    public List<Category> searchAll() {
+        return rep.findAll();
     }
     
 }
