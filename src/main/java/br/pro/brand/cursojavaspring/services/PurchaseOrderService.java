@@ -15,7 +15,7 @@ public class PurchaseOrderService {
     @Autowired
     private PurchaseOrderRepository rep;
 
-    public PurchaseOrder find_purchaseOrder(Integer id) {
+    public PurchaseOrder search(Integer id) {
         Optional<PurchaseOrder> obj = rep.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException(
             "Object not found! Id: " + id + 

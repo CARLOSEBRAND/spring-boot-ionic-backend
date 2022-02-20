@@ -18,8 +18,8 @@ public class CustomerResource {
 	private CustomerService service;
 
 	@RequestMapping(value = "/{id}", method=RequestMethod.GET)
-	public ResponseEntity<?> find(@PathVariable Integer id) {
-		Customer obj = service.find_customer(id);
+	public ResponseEntity<Customer> search(@PathVariable Integer id) {
+		Customer obj = service.search(id);
 		return ResponseEntity.ok().body(obj);
 	}
 }

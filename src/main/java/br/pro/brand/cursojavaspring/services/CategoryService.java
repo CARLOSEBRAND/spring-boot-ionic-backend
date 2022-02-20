@@ -28,6 +28,11 @@ public class CategoryService {
         return rep.save(obj);
     }
 
+    public Category update(Category obj) {
+        search(obj.getId());
+        return rep.save(obj);
+    }
+
 
     
 }

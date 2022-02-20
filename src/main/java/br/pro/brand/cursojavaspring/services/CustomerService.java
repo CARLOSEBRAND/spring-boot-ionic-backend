@@ -15,7 +15,7 @@ public class CustomerService {
     @Autowired
     private CustomerRepository rep;
 
-    public Customer find_customer(Integer id) {
+    public Customer search(Integer id) {
         Optional<Customer> obj = rep.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException(
             "Object not found! Id: " + id + 
