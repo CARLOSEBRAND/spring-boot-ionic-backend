@@ -59,7 +59,7 @@ public class CustomerService {
 			rep.deleteById(id);
 		}
 		catch (DataIntegrityViolationException e) {
-			throw new DataIntegrityException("Its not possible to delete a customer that contains data in other entities");
+			throw new DataIntegrityException("It's no possible to delete a customer that contains purchase orders");
 		}
 	}
 
