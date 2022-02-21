@@ -53,7 +53,7 @@ public class Customer implements Serializable {
         this.name = name;
         this.email = email;
         this.identification = identification;
-        this.type = type;        
+        this.type = (type==null) ? null : type;
     }
 
     public Integer getId() {
