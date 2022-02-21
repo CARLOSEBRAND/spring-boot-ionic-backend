@@ -2,22 +2,45 @@ package br.pro.brand.cursojavaspring.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
+import br.pro.brand.cursojavaspring.services.validation.CustomerInsert;
+
+@CustomerInsert
 public class CustomerInsertDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private String name;
+	@NotEmpty(message="The field can not be blank value")
+	@Size(min=5, max=120, message="The category '${validatedValue}' must be between {min} and {max} characters long")
+    private String name;
+    
+    @NotEmpty(message="The field can not be blank value")
+	@Email(message="Invalid Mail")
     private String email;
+    
+    @NotEmpty(message="The field can not be blank value")
     private String identification;
+
     private String type;
 
-	private String street;
+	@NotEmpty(message="The field can not be blank value")
+    private String street;
+    
+    @NotEmpty(message="The field can not be blank value")
     private String number;
+    
     private String complement;
     private String district;
+    
+    @NotEmpty(message="The field can not be blank value")
     private String zipcode;
 
-	private String phone1;
-	private String phone2;
+	@NotEmpty(message="The field can not be blank value")
+    private String phone1;
+	
+    private String phone2;
 	private String phone3;
 
 	private Integer cityId;
