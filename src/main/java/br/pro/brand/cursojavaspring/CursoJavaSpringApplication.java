@@ -80,6 +80,14 @@ public class CursoJavaSpringApplication implements CommandLineRunner {
 		Product p1 = new Product(null, "Computador", 2000.00);
 		Product p2 = new Product(null, "Impressora", 800.00);
 		Product p3 = new Product(null, "Mouse", 70.00);
+		Product p4 = new Product(null, "Mesa de escritório", 300.00);
+		Product p5 = new Product(null, "Toalha", 50.00);
+		Product p6 = new Product(null, "Colcha", 200.00);
+		Product p7 = new Product(null, "TV true color", 1200.00);
+		Product p8 = new Product(null, "Roçadeira", 800.00);
+		Product p9 = new Product(null, "Abajour", 100.00);
+		Product p10 = new Product(null, "Pendente", 180.00);
+		Product p11 = new Product(null, "Shampoo", 90.00);
 
 		State est1 = new State(null, "Minas Gerais");
 		State est2 = new State(null, "São Paulo");
@@ -108,28 +116,44 @@ public class CursoJavaSpringApplication implements CommandLineRunner {
 		OrderDetail ip2 = new OrderDetail(ped1, p3, 0.00, 2, 80.00);
 		OrderDetail ip3 = new OrderDetail(ped2, p2, 100.00, 1, 800.00);
 
-
 		//associating tables category x product
 		cat1.getProducts().addAll(Arrays.asList(p1,p2,p3));
 		cat2.getProducts().addAll(Arrays.asList(p2));
-		p1.getCategories().addAll(Arrays.asList(cat1));
-		p2.getCategories().addAll(Arrays.asList(cat1,cat2));
-		p3.getCategories().addAll(Arrays.asList(cat1));
+		cat2.getProducts().addAll(Arrays.asList(p2, p4));
+		cat3.getProducts().addAll(Arrays.asList(p5, p6));
+		cat4.getProducts().addAll(Arrays.asList(p1, p2, p3, p7));
+		cat5.getProducts().addAll(Arrays.asList(p8));
+		cat6.getProducts().addAll(Arrays.asList(p9, p10));
+		cat7.getProducts().addAll(Arrays.asList(p11));
+
+		p1.getCategories().addAll(Arrays.asList(cat1, cat4));
+		p2.getCategories().addAll(Arrays.asList(cat1, cat2, cat4));
+		p3.getCategories().addAll(Arrays.asList(cat1, cat4));
+		p4.getCategories().addAll(Arrays.asList(cat2));
+		p5.getCategories().addAll(Arrays.asList(cat3));
+		p6.getCategories().addAll(Arrays.asList(cat3));
+		p7.getCategories().addAll(Arrays.asList(cat4));
+		p8.getCategories().addAll(Arrays.asList(cat5));
+		p9.getCategories().addAll(Arrays.asList(cat6));
+		p10.getCategories().addAll(Arrays.asList(cat6));
+		p11.getCategories().addAll(Arrays.asList(cat7));
+		
 		est1.getCities().addAll(Arrays.asList(c1));
 		est2.getCities().addAll(Arrays.asList(c2,c3));
+		
 		ctmr1.getAdresses().addAll(Arrays.asList(a1,a2));
 		ctmr1.getPurchaseOrders().addAll(Arrays.asList(ped1,ped2));
+		
 		ped1.getOrderDetails().addAll(Arrays.asList(ip1, ip2));
 		ped2.getOrderDetails().addAll(Arrays.asList(ip3));
+		
 		p1.getOrderDetails().addAll(Arrays.asList(ip1));
 		p2.getOrderDetails().addAll(Arrays.asList(ip3));
 		p3.getOrderDetails().addAll(Arrays.asList(ip2));
 
-
-
 		//save in tables
 		categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3, cat4, cat5, cat6, cat7));
-		productRepository.saveAll(Arrays.asList(p1,p2,p3));
+		productRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11));
 		stateRepository.saveAll(Arrays.asList(est1,est2));
 		cityRepository.saveAll(Arrays.asList(c1,c2,c3));
 		customerRepository.saveAll(Arrays.asList(ctmr1));
