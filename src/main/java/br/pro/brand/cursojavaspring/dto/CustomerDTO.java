@@ -7,7 +7,9 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 import br.pro.brand.cursojavaspring.domain.Customer;
+import br.pro.brand.cursojavaspring.services.validation.CustomerUpdate;
 
+@CustomerUpdate
 public class CustomerDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
